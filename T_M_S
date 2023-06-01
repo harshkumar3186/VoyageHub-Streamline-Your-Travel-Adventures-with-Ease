@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 class AdminMenu {
 public:
@@ -74,7 +75,27 @@ public:
 float CabService::lastCabCost;
 
 class ManageMenu : public AdminMenu, public CabService, public Customer {
+private:
+    std::vector<std::string> customerList;
+
 public:
+    void addNewCustomer() {
+        std::string customerName;
+        std::cout << "New Customer Menu" << std::endl;
+        std::cout << "Enter customer name: ";
+        std::cin.ignore(); // Ignore the newline character in the input buffer
+        std::getline(std::cin, customerName);
+        customerList.push_back(customerName);
+        std::cout << "Customer added successfully!" << std::endl;
+    }
+
+    void showAllCustomers() {
+        std::cout << "Customer List:" << std::endl;
+        for (const std::string& customer : customerList) {
+            std::cout << customer << std::endl;
+        }
+    }
+
     void menu() {
         char choice;
         do {
@@ -88,14 +109,14 @@ public:
 
             switch (choice) {
                 case '1':
-                    std::cout << "New Customer Menu" << std::endl;
-                    // Code for adding a new customer
+                    addNewCustomer();
                     break;
                 case '2':
                     CabService::displayCabDetails();
                     break;
                 case '3':
                     showDetails();
+                    showAllCustomers();
                     break;
                 case '4':
                     menuBack();
@@ -117,11 +138,21 @@ int main() {
 
 
 /*
-The code starts by including the iostream library, which provides input and output stream functionalities.
-The code defines a class called AdminMenu that represents the admin menu functionality. It has a member function showDetails() which displays the message "Admin Menu: Display All Customer Details". This function can be further extended to include the code for displaying actual customer details.
-The code defines a class called Customer which represents customer-related functionality. It has a member function menuBack() which displays the message "Returning to main menu...". This function can be extended to include the code for navigating back to the main menu.
-The code defines a class called CabService which represents the cab service functionality. It has a private static member variable lastCabCost to store the cost of the last cab rented. The class also has a static member function displayCabDetails() which allows the user to select a cab type (standard or luxury) and enter the number of kilometers. It then calculates the cost based on the selected cab type and kilometers. After calculating the cost, the user is prompted to hire the cab or select another cab.The code initializes the static member lastCabCost of the CabService class.
-The code defines a class called ManageMenu which is derived from the AdminMenu, CabService, and Customer classes. This class represents the main menu for managing customers and cab services. It has a member function menu() which displays the main menu options. Inside the menu() function, the user is prompted to choose an option from the menu, such as adding a new customer, renting a cab, showing all customer details, or returning to the previous menu. The corresponding functions from the base classes are called based on the user's choice.
-The main() function serves as the entry point of the program. It creates an instance of the ManageMenu class called manageMenu and calls its menu() function to start the main menu interaction.
-Overall, this code provides a basic structure for a travel management system. It includes classes for admin functionality, customer functionality, and cab service functionality. The ManageMenu class serves as the main menu to manage customers and cab services. However, the code is still incomplete and requires further implementation of specific functionalities like adding a new customer or navigating back to the main menu based on your specific requirements.
+EXPLANATION :-
+First, we have the necessary #include statements to include the required libraries.
+The AdminMenu class is defined, which currently has a single function showDetails(). This function is responsible for displaying all the customer details. In the provided code, the actual implementation of displaying customer details is missing, so you would need to add the relevant code in this function.
+The Customer class is defined, which currently has a single function menuBack(). This function is responsible for returning to the main menu. Similar to the AdminMenu class, the actual implementation of going back to the main menu is missing, so you would need to add the relevant code in this function.
+The CabService class is defined. This class contains the static function displayCabDetails(), which handles the process of renting a cab. It prompts the user to choose between a standard cab and a luxury cab, input the number of kilometers, calculates the cost based on the chosen cab type and kilometers, and offers the option to hire the cab or select another cab. If the user chooses to hire the cab, it sets the lastCabCost variable accordingly.
+The lastCabCost variable is declared as a static float inside the CabService class. It keeps track of the cost of the last rented cab.
+The ManageMenu class is defined, which inherits from AdminMenu, CabService, and Customer. This class contains the main menu and manages the interactions with the user.
+The addNewCustomer() function is added to the ManageMenu class. This function is called when the user selects the "New Customer" option from the main menu. It prompts the user to enter a customer name and adds it to the customerList vector.
+The showAllCustomers() function is added to the ManageMenu class. This function is called when the user selects the "Show All Customer Details" option from the main menu. It displays all the customer names stored in the customerList vector.
+The menu() function is defined inside the ManageMenu class. This function represents the main menu and handles user input and corresponding actions. It uses a do-while loop to continuously display the menu and process the user's choice until the user selects the "Return to Previous Menu" option.
+Inside the menu() function, there is a switch statement that checks the user's choice and performs the corresponding action:
+If the user selects "1. New Customer", the addNewCustomer() function is called to add a new customer to the customerList.
+If the user selects "2. Rent a Cab", the displayCabDetails() function from the CabService class is called to handle the cab renting process.
+If the user selects "3. Show All Customer Details", the showDetails() function from the AdminMenu class is called to display the customer details, followed by the showAllCustomers() function to display the customer list.
+If the user selects "4. Return to Previous Menu", the menuBack() function from the Customer class is called to return to the main menu.
+If the user selects any other option, an error message is displayed.
+The main() function creates an instance of the ManageMenu class named manageMenu and calls its menu() function to start the program.
 */
