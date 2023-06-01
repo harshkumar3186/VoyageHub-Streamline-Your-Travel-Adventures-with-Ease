@@ -1,0 +1,127 @@
+#include <iostream>
+
+class AdminMenu {
+public:
+    void showDetails() {
+        std::cout << "Admin Menu: Display All Customer Details" << std::endl;
+        // Code to display customer details
+    }
+};
+
+class Customer {
+public:
+    void menuBack() {
+        std::cout << "Returning to main menu..." << std::endl;
+        // Code to go back to the main menu
+    }
+};
+
+class CabService {
+private:
+    static float lastCabCost;
+
+public:
+    static void displayCabDetails() {
+        int cabChoice;
+        int kilometers;
+        int hireCab;
+
+        std::cout << "Cab Service: Rent a Cab" << std::endl;
+        std::cout << "1. Standard Cab" << std::endl;
+        std::cout << "2. Luxury Cab" << std::endl;
+        std::cout << "Enter your cab choice: ";
+        std::cin >> cabChoice;
+        std::cout << "Enter the number of kilometers: ";
+        std::cin >> kilometers;
+
+        float cabCost;
+        if (cabChoice == 1) {
+            cabCost = kilometers * 20;
+            std::cout << "\nYour tour will cost " << cabCost << " rupees for a standard cab" << std::endl;
+            std::cout << "Press 1 to hire this cab or ";
+            std::cout << "Press 2 to select another cab: ";
+            std::cin >> hireCab;
+            if (hireCab == 1) {
+                lastCabCost = cabCost;
+                std::cout << "\n\nHired! Have a safe journey!" << std::endl;
+                std::cout << "--------------------------------" << std::endl;
+            }
+            else {
+                displayCabDetails();
+            }
+        }
+        else if (cabChoice == 2) {
+            cabCost = kilometers * 25;
+            std::cout << "\nYour tour will cost " << cabCost << " rupees for a luxury cab" << std::endl;
+            std::cout << "Press 1 to hire this cab or ";
+            std::cout << "Press 2 to select another cab: ";
+            std::cin >> hireCab;
+            if (hireCab == 1) {
+                lastCabCost = cabCost;
+                std::cout << "\n\nHired! Have a safe journey!" << std::endl;
+                std::cout << "--------------------------------" << std::endl;
+            }
+            else {
+                displayCabDetails();
+            }
+        }
+        else {
+            displayCabDetails();
+        }
+    }
+};
+
+float CabService::lastCabCost;
+
+class ManageMenu : public AdminMenu, public CabService, public Customer {
+public:
+    void menu() {
+        char choice;
+        do {
+            std::cout << "---------Main Menu---------" << std::endl;
+            std::cout << "1. New Customer" << std::endl;
+            std::cout << "2. Rent a Cab" << std::endl;
+            std::cout << "3. Show All Customer Details" << std::endl;
+            std::cout << "4. Return to Previous Menu" << std::endl;
+            std::cout << "Enter your choice: ";
+            std::cin >> choice;
+
+            switch (choice) {
+                case '1':
+                    std::cout << "New Customer Menu" << std::endl;
+                    // Code for adding a new customer
+                    break;
+                case '2':
+                    CabService::displayCabDetails();
+                    break;
+                case '3':
+                    showDetails();
+                    break;
+                case '4':
+                    menuBack();
+                    break;
+                default:
+                    std::cout << "Invalid choice. Please try again." << std::endl;
+                    break;
+            }
+        } while (choice != '4');
+    }
+};
+
+int main() {
+    ManageMenu manageMenu;
+    manageMenu.menu();
+
+    return 0;
+}
+
+
+/*
+The code starts by including the iostream library, which provides input and output stream functionalities.
+The code defines a class called AdminMenu that represents the admin menu functionality. It has a member function showDetails() which displays the message "Admin Menu: Display All Customer Details". This function can be further extended to include the code for displaying actual customer details.
+The code defines a class called Customer which represents customer-related functionality. It has a member function menuBack() which displays the message "Returning to main menu...". This function can be extended to include the code for navigating back to the main menu.
+The code defines a class called CabService which represents the cab service functionality. It has a private static member variable lastCabCost to store the cost of the last cab rented. The class also has a static member function displayCabDetails() which allows the user to select a cab type (standard or luxury) and enter the number of kilometers. It then calculates the cost based on the selected cab type and kilometers. After calculating the cost, the user is prompted to hire the cab or select another cab.The code initializes the static member lastCabCost of the CabService class.
+The code defines a class called ManageMenu which is derived from the AdminMenu, CabService, and Customer classes. This class represents the main menu for managing customers and cab services. It has a member function menu() which displays the main menu options. Inside the menu() function, the user is prompted to choose an option from the menu, such as adding a new customer, renting a cab, showing all customer details, or returning to the previous menu. The corresponding functions from the base classes are called based on the user's choice.
+The main() function serves as the entry point of the program. It creates an instance of the ManageMenu class called manageMenu and calls its menu() function to start the main menu interaction.
+Overall, this code provides a basic structure for a travel management system. It includes classes for admin functionality, customer functionality, and cab service functionality. The ManageMenu class serves as the main menu to manage customers and cab services. However, the code is still incomplete and requires further implementation of specific functionalities like adding a new customer or navigating back to the main menu based on your specific requirements.
+*/
