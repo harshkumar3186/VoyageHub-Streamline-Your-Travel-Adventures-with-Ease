@@ -1,3 +1,4 @@
+#include <bits/stdc++.h>
 #include <iostream>
 #include <vector>
 
@@ -139,6 +140,7 @@ int main() {
 
 /*
 EXPLANATION :-
+( #include <bits/stdc++.h> ) -> This line includes the entire standard library in a single line.
 First, we have the necessary #include statements to include the required libraries.
 The AdminMenu class is defined, which currently has a single function showDetails(). This function is responsible for displaying all the customer details. In the provided code, the actual implementation of displaying customer details is missing, so you would need to add the relevant code in this function.
 The Customer class is defined, which currently has a single function menuBack(). This function is responsible for returning to the main menu. Similar to the AdminMenu class, the actual implementation of going back to the main menu is missing, so you would need to add the relevant code in this function.
